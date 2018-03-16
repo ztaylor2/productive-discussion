@@ -1,0 +1,55 @@
+{% extends "productivediscussion/base.html" %}
+
+{% block body %}
+
+    {% if form.errors %}
+        <p>Invalid login. Please try again.</p>
+    {% endif %}
+    <div class="container" style="margin-top: 125px; max-width: 300px;">
+        <form class="align-middle" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>{{ form.username.label_tag }}</label>
+                        <input class="form-control" type="text"
+                           name="{{ form.username.name }}"
+                           id="{{ form.username.id_for_label }}"
+                           {% if form.username.value != None %}value="{{ form.username.value|stringformat:'s' }}"{% endif %}
+                           maxlength="{{ form.username.field.max_length }}"
+                           {% if form.username.field.required %}required{% endif %}>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>{{ form.password.label_tag }}</label>
+                        <input class="form-control" type="password"
+                           name="{{ form.password.name }}"
+                           id="{{ form.password.id_for_label }}"
+                           {% if form.password.value != None %}value="{{ form.password.value|stringformat:'s' }}"{% endif %}
+                           maxlength="{{ form.password.field.max_length }}"
+                           {% if form.password.field.required %}required{% endif %}>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="login" />
+        </form>
+    </div>
+
+{% endblock %}
