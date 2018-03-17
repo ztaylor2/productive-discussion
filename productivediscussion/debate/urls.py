@@ -4,5 +4,7 @@ from debate.views import DebateDetailView, DebateCreateView
 
 urlpatterns = [
     re_path(r'^create/$', DebateCreateView.as_view(), name='debate_create'),
-    re_path(r'^detail/(?P<pk>\d+)/$', DebateDetailView.as_view(), name='debate_detail'),
+    re_path('^(?P<pk>\d+)', DebateDetailView.as_view(), name='debate_detail'),
 ]
+
+# path('<slug:slug>/', ArticleDetailView.as_view(), name='article-detail'),
