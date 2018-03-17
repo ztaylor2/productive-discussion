@@ -4,6 +4,27 @@
 
     <h1 style="margin-top: 40px;">Debate</h1>
 
+    <table class="table table-striped" style="margin-top: 40px;">
+        <thead>
+            <tr>
+                <th scope="col">Debate</th>
+                <th scope="col">Date Published</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for debate in debate_list %}
+
+                <tr>
+                    <td><a href="{% url 'debate_detail' pk %}">{{ debate.title }}</a></td>
+                    <td>{{ debate.publication_date }}</td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
 {% endblock %}
 
 {% block body %}
