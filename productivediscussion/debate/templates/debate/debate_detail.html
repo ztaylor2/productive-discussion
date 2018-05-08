@@ -10,6 +10,10 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text" style="white-space: pre-wrap;">body</p>
+
+                        <a href="{% url 'debate_for_create' debate.pk %}">Create Argument For</a>
+
+                        <a href="{% url 'debate_against_create' debate.pk %}">Create Argument Against</a>
                     </div>
                     <div class="card-footer">
                         <a href="{% url 'home' %}">Home</a>
