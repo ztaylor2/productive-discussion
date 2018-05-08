@@ -8,23 +8,20 @@ class Debate(models.Model):
 
     title = models.CharField(max_length=50)
     publication_date = models.DateField(auto_now_add=True)
-
-
-
     created_by = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        default=None,
     )
-
-
-
     arguments_for = models.ForeignKey(
         'ArgumentsFor',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        default=None,
     )
     arguments_against = models.ForeignKey(
         'ArgumentsAgainst',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        default=None,
     )
 
 
@@ -36,6 +33,7 @@ class ArgumentsFor(models.Model):
     created_by = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        default=None,
     )
 
 
@@ -47,4 +45,5 @@ class ArgumentsAgainst(models.Model):
     created_by = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        default=None,
     )
