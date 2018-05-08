@@ -1,5 +1,6 @@
 """Database models for debates."""
 from django.db import models
+from django.conf import settings
 
 
 class Debate(models.Model):
@@ -7,6 +8,16 @@ class Debate(models.Model):
 
     title = models.CharField(max_length=50)
     publication_date = models.DateField(auto_now_add=True)
+
+
+
+    created_by = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
+
+
     arguments_for = models.ForeignKey(
         'ArgumentsFor',
         on_delete=models.CASCADE
@@ -22,6 +33,10 @@ class ArgumentsFor(models.Model):
 
     argument = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
+    created_by = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
 
 
 class ArgumentsAgainst(models.Model):
@@ -29,3 +44,7 @@ class ArgumentsAgainst(models.Model):
 
     argument = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
+    created_by = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
