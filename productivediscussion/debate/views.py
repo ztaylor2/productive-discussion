@@ -23,3 +23,11 @@ class DebateDetailView(DetailView):
 
     template_name = 'debate/debate_detail.html'
     model = Debate
+
+
+class ArgumentForCreateView(CreateView):
+    """A create view for creating an argument for a debate."""
+
+
+class ArgumentAgainstCreateView(CreateView):
+    """A create view for creating an argument against a debate."""
