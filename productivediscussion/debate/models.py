@@ -20,6 +20,12 @@ class Debate(models.Model):
 class ArgumentsFor(models.Model):
     """All of the arguments in favor of a debate."""
 
+    argument = models.TextField(max_length=500)
+    publication_date = models.DateField(auto_now_add=True)
+
 
 class ArgumentsAgainst(models.Model):
     """All of the arguments against a debate topic."""
+
+    argument = models.TextField(max_length=500)
+    publication_date = models.DateField(auto_now_add=True)
