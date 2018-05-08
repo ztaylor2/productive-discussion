@@ -38,6 +38,7 @@ class ArgumentsFor(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         default=None,
+        null=True,
     )
 
 
@@ -50,4 +51,5 @@ class ArgumentsAgainst(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         default=None,
+        null=True,
     )

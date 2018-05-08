@@ -31,12 +31,13 @@ class ArgumentForCreateView(CreateView):
     template_name = 'debate/argument_for_create.html'
     model = ArgumentsFor
     fields = ['argument']
-    # success_url = reverse_lazy('home')
+    success_url = reverse_lazy('home')
 
 
 class ArgumentAgainstCreateView(CreateView):
     """A create view for creating an argument against a debate."""
+
     template_name = 'debate/argument_against_create.html'
     model = ArgumentsAgainst
     fields = ['argument']
-    # success_url = reverse_lazy('home')
+    success_url = reverse_lazy('home')
