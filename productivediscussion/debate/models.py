@@ -30,7 +30,7 @@ class ArgumentsFor(models.Model):
         null=True,
     )
     created_by = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -49,7 +49,7 @@ class ArgumentsAgainst(models.Model):
         null=True,
     )
     created_by = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -59,9 +59,9 @@ class ArgumentsAgainst(models.Model):
 @receiver(models.signals.post_save, sender=ArgumentsFor)
 def update_debate_for_arguments(sender, **kwargs):
     """When an argument for is saved, it is added to the debate model."""
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
 
-    sitter = kwargs['instance']
+    # sitter = kwargs['instance']
 
 
     # letters_seen = set()
