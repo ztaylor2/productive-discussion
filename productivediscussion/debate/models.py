@@ -2,6 +2,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.dispatch import receiver
 
 
 class Debate(models.Model):
@@ -15,18 +16,6 @@ class Debate(models.Model):
         default=None,
         null=True,
     )
-    arguments_for = models.ForeignKey(
-        'ArgumentsFor',
-        on_delete=models.CASCADE,
-        default=None,
-        null=True,
-    )
-    arguments_against = models.ForeignKey(
-        'ArgumentsAgainst',
-        on_delete=models.CASCADE,
-        default=None,
-        null=True,
-    )
 
 
 class ArgumentsFor(models.Model):
@@ -34,8 +23,14 @@ class ArgumentsFor(models.Model):
 
     argument = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
+    debate = models.ForeignKey(
+        'Debate',
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+    )
     created_by = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -47,9 +42,36 @@ class ArgumentsAgainst(models.Model):
 
     argument = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
-    created_by = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+    debate = models.ForeignKey(
+        'Debate',
         on_delete=models.CASCADE,
         default=None,
         null=True,
     )
+    created_by = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+    )
+
+
+@receiver(models.signals.post_save, sender=ArgumentsFor)
+def update_debate_for_arguments(sender, **kwargs):
+    """When an argument for is saved, it is added to the debate model."""
+    # import pdb; pdb.set_trace()
+
+    # sitter = kwargs['instance']
+
+
+    # letters_seen = set()
+    # num_unique_letters = 0
+    # for char in sitter.name.lower():
+    #     if char.isalpha() and char not in letters_seen:
+    #         num_unique_letters += 1
+
+    # sitter_score = 5 * (num_unique_letters / 26)
+
+    # sitter_rank, created = SitterRank.objects.get_or_create(
+    #     sitter=sitter,
+    #     defaults={'sitter_score': sitter_score, 'sitter_rank': sitter_score})
