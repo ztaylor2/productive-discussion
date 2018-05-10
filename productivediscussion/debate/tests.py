@@ -1,6 +1,6 @@
 """Test the debate app."""
 from django.test import TestCase
-from debate.models import Debate, ArgumentsFor
+from debate.models import Debate, ArgumentsFor, ArgumentsAgainst
 
 
 class DebateTest(TestCase):
@@ -19,6 +19,14 @@ class DebateTest(TestCase):
                                         debate=new_debate)
         two_argument_for.save()
 
+        one_argument_against = ArgumentsAgainst(argument='One argument against.',
+                                                debate=new_debate)
+        one_argument_against.save()
+
+        two_argument_against = ArgumentsAgainst(argument='Another argument against.',
+                                                debate=new_debate)
+        two_argument_against.save()
+
     def test_debate_is_created_and_title_added(self):
         """Test that a debate model instance is created by setup."""
         one_debate = Debate.objects.get(id=1)
@@ -27,6 +35,12 @@ class DebateTest(TestCase):
 
     def test_debate_multiple_arguments_for(self):
         """Test the one to many relationship for a debate and arguments for."""
-        the_debate = Debate.objects.get(id=2)
+        the_debate = Debate.objects.get(id=3)
         arguments_for = the_debate.argumentsfor_set.all()
         self.assertEqual(len(arguments_for), 2)
+
+    def test_debate_multiple_arguments_against(self):
+        """Test the one to many relationship for a debate and arguments for."""
+        the_debate = Debate.objects.get(id=2)
+        arguments_against = the_debate.argumentsagainst_set.all()
+        self.assertEqual(len(arguments_against), 2)
