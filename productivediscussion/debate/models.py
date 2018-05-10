@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # from django.dispatch import receiver
 
+from django.urls import reverse
+
 
 class Debate(models.Model):
     """The database model for a debate."""
@@ -36,6 +38,10 @@ class ArgumentsFor(models.Model):
         default=None,
         null=True,
     )
+
+    def get_absolute_url(self):
+        """The url to redirect to when an argument for is created."""
+        return reverse('debate_detail', kwargs={'pk': self.debate.pk})
 
 
 class ArgumentsAgainst(models.Model):

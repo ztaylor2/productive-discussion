@@ -45,7 +45,10 @@ class ArgumentForCreateView(CreateView):
     template_name = 'debate/argument_for_create.html'
     model = ArgumentsFor
     fields = ['argument']
-    success_url = reverse_lazy('home')
+
+    # import pdb; pdb.set_trace()
+    # debate_id = self.request.path.split('/')[-1]
+    # success_url = '/debate/{}'.format(debate_id)
 
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""
