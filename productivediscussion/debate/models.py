@@ -39,6 +39,8 @@ class ArgumentsFor(models.Model):
         default=None,
         null=True,
     )
+    likes = models.IntegerField()
+    dislikes = models.IntegerField()
 
     def get_absolute_url(self):
         """The url to redirect to when an argument for is created."""
@@ -62,10 +64,22 @@ class ArgumentsAgainst(models.Model):
         default=None,
         null=True,
     )
+    likes = models.IntegerField()
+    dislikes = models.IntegerField()
 
     def get_absolute_url(self):
         """The url to redirect to when an argument for is created."""
         return reverse('debate_detail', kwargs={'pk': self.debate.pk})
+
+
+class Like(models.Model):
+    """A model that represents a like."""
+
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,)
+    # argument = models.ForeignKey(Argument,
+    #                              on_delete=models.CASCADE,)
+    created = models.DateTimeField(auto_now_add=True)
 
 
 @receiver(models.signals.post_save, sender=ArgumentsFor)
