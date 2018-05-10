@@ -4,7 +4,6 @@ from debate.models import Debate, ArgumentsFor, ArgumentsAgainst
 from django.views.generic import DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from debate.models import Debate
 
 
 class DebateCreateView(LoginRequiredMixin, CreateView):
@@ -15,7 +14,7 @@ class DebateCreateView(LoginRequiredMixin, CreateView):
 
     template_name = 'debate/debate_create.html'
     model = Debate
-    fields = ['title']
+    fields = ['title', 'description']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
