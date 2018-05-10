@@ -29,7 +29,7 @@ class ArgumentsFor(models.Model):
         default=None,
         null=True,
     )
-    created_by = models.OneToOneField(
+    created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,
@@ -48,7 +48,7 @@ class ArgumentsAgainst(models.Model):
         default=None,
         null=True,
     )
-    created_by = models.OneToOneField(
+    created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,
@@ -59,19 +59,4 @@ class ArgumentsAgainst(models.Model):
 @receiver(models.signals.post_save, sender=ArgumentsFor)
 def update_debate_for_arguments(sender, **kwargs):
     """When an argument for is saved, it is added to the debate model."""
-    # import pdb; pdb.set_trace()
-
     # sitter = kwargs['instance']
-
-
-    # letters_seen = set()
-    # num_unique_letters = 0
-    # for char in sitter.name.lower():
-    #     if char.isalpha() and char not in letters_seen:
-    #         num_unique_letters += 1
-
-    # sitter_score = 5 * (num_unique_letters / 26)
-
-    # sitter_rank, created = SitterRank.objects.get_or_create(
-    #     sitter=sitter,
-    #     defaults={'sitter_score': sitter_score, 'sitter_rank': sitter_score})
