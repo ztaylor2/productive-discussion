@@ -13,6 +13,7 @@ class Debate(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
+    number_of_arguments = models.IntegerField(default=0)
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
