@@ -62,6 +62,10 @@ class ArgumentsAgainst(models.Model):
         null=True,
     )
 
+    def get_absolute_url(self):
+        """The url to redirect to when an argument for is created."""
+        return reverse('debate_detail', kwargs={'pk': self.debate.pk})
+
 
 # @receiver(models.signals.post_save, sender=ArgumentsFor)
 # def update_debate_for_arguments(sender, **kwargs):
