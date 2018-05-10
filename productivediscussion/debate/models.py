@@ -24,7 +24,7 @@ class ArgumentsFor(models.Model):
     argument = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
     debate = models.ForeignKey(
-        'Debate',
+        Debate,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -43,7 +43,7 @@ class ArgumentsAgainst(models.Model):
     argument = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
     debate = models.ForeignKey(
-        'Debate',
+        Debate,
         on_delete=models.CASCADE,
         default=None,
         null=True,

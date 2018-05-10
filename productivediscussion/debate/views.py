@@ -40,6 +40,11 @@ class ArgumentForCreateView(CreateView):
     fields = ['debate', 'argument']
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        """Assign the user to the foreign key in the model."""
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
 
 class ArgumentAgainstCreateView(CreateView):
     """A create view for creating an argument against a debate."""
@@ -48,3 +53,8 @@ class ArgumentAgainstCreateView(CreateView):
     model = ArgumentsAgainst
     fields = ['argument']
     success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        """Assign the user to the foreign key in the model."""
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
