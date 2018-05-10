@@ -9,11 +9,25 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-text" style="white-space: pre-wrap;">body</p>
+                        <p class="card-text" style="white-space: pre-wrap;"></p>
 
                         <a href="{% url 'debate_for_create' debate.pk %}">Create Argument For</a>
 
+                        {% for argument in arguments_for %} 
+
+                            <p> {{ argument.argument }} </p>
+
+                        {% endfor %}
+
                         <a href="{% url 'debate_against_create' debate.pk %}">Create Argument Against</a>
+
+
+                        {% for argument in arguments_against %} 
+
+                            <p> {{ argument.argument }} </p>
+
+                        {% endfor %}
+
                     </div>
                     <div class="card-footer">
                         <a href="{% url 'home' %}">Home</a>
