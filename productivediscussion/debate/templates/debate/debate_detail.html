@@ -20,6 +20,14 @@
                         {% endfor %}
 
                         <a href="{% url 'debate_against_create' debate.pk %}">Create Argument Against</a>
+
+
+                        {% for argument in arguments_against %} 
+
+                            <p> {{ argument.argument }} </p>
+
+                        {% endfor %}
+
                     </div>
                     <div class="card-footer">
                         <a href="{% url 'home' %}">Home</a>
