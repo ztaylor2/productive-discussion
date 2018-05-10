@@ -46,10 +46,6 @@ class ArgumentForCreateView(CreateView):
     model = ArgumentsFor
     fields = ['argument']
 
-    # import pdb; pdb.set_trace()
-    # debate_id = self.request.path.split('/')[-1]
-    # success_url = '/debate/{}'.format(debate_id)
-
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""
         form.instance.created_by = self.request.user
@@ -66,7 +62,6 @@ class ArgumentAgainstCreateView(CreateView):
     template_name = 'debate/argument_against_create.html'
     model = ArgumentsAgainst
     fields = ['argument']
-    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""
