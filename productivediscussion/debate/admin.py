@@ -1,9 +1,7 @@
 """Admin."""
 from django.contrib import admin
 from debate.models import Debate
-from debate.models import ArgumentsFor
-from debate.models import ArgumentsAgainst
+from debate.models import Argument
 
 admin.site.register(Debate)
-admin.site.register(ArgumentsFor)
-admin.site.register(ArgumentsAgainst)
+admin.site.register(Argument)
