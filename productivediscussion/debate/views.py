@@ -69,4 +69,8 @@ class ArgumentAgainstCreateView(CreateView):
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""
         form.instance.created_by = self.request.user
+
+        debate_id = self.request.path.split('/')[-1]
+        form.instance.debate = Debate.objects.get(id=debate_id)
+
         return super().form_valid(form)
