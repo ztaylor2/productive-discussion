@@ -2,7 +2,7 @@
 from django.db import models
 # from django.conf import settings
 from django.contrib.auth.models import User
-# from django.dispatch import receiver
+from django.dispatch import receiver
 
 from django.urls import reverse
 
@@ -68,7 +68,19 @@ class ArgumentsAgainst(models.Model):
         return reverse('debate_detail', kwargs={'pk': self.debate.pk})
 
 
-# @receiver(models.signals.post_save, sender=ArgumentsFor)
-# def update_debate_for_arguments(sender, **kwargs):
-#     """When an argument for is saved, it is added to the debate model."""
-#     sitter = kwargs['instance']
+@receiver(models.signals.post_save, sender=ArgumentsFor)
+def update_debate_for_arguments(sender, **kwargs):
+    """When an argument for is saved."""
+    argument_for = kwargs['instance']
+    debate = argument_for.debate
+    debate.number_of_arguments += 1
+    debate.save()
+
+
+@receiver(models.signals.post_save, sender=ArgumentsAgainst)
+def update_debate_against_arguments(sender, **kwargs):
+    """When an argument against is saved."""
+    argument_against = kwargs['instance']
+    debate = argument_against.debate
+    debate.number_of_arguments += 1
+    debate.save()
