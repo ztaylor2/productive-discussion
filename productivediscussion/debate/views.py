@@ -4,7 +4,6 @@ from debate.models import Debate, ArgumentsFor, ArgumentsAgainst
 from django.views.generic import DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from debate.models import Debate
 
 
 class DebateCreateView(LoginRequiredMixin, CreateView):
@@ -15,7 +14,7 @@ class DebateCreateView(LoginRequiredMixin, CreateView):
 
     template_name = 'debate/debate_create.html'
     model = Debate
-    fields = ['title']
+    fields = ['title', 'description']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
@@ -46,7 +45,6 @@ class ArgumentForCreateView(CreateView):
     template_name = 'debate/argument_for_create.html'
     model = ArgumentsFor
     fields = ['argument']
-    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""
@@ -64,7 +62,6 @@ class ArgumentAgainstCreateView(CreateView):
     template_name = 'debate/argument_against_create.html'
     model = ArgumentsAgainst
     fields = ['argument']
-    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""

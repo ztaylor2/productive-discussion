@@ -4,10 +4,13 @@
 
     <h1 style="margin-top: 40px;">Debate</h1>
 
+    <h2 style="margin-top: 20px;">Mission Statement: The purpose of this platform is to promote constructive intellectual discourse about controversial topics.</h2>
+
     <table class="table table-striped" style="margin-top: 40px;">
         <thead>
             <tr>
                 <th scope="col">Debate</th>
+                <th scope="col">Arguments</th>
                 <th scope="col">Date Published</th>
             </tr>
         </thead>
@@ -17,6 +20,7 @@
 
                 <tr>
                     <td><a href="{% url 'debate_detail' debate.pk %}">{{ debate.title }}</a></td>
+                    <td>{{ debate.number_of_arguments }}</td>
                     <td>{{ debate.publication_date }}</td>
                 </tr>
 

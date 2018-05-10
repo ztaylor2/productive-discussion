@@ -3,35 +3,54 @@
 {% block body %}
 
     <h1 style="margin-top: 40px;">{{ object.title }}</h1>
+    <h2>{{ object.description }}</h2>
+    <h3>Published: {{ object.publication_date|date }}</h3>
 
     <div class="container" style="margin-top: 40px;">
         <div class="row justify-content-center">
-            <div class="col-8">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-text" style="white-space: pre-wrap;"></p>
-
-                        <a href="{% url 'debate_for_create' debate.pk %}">Create Argument For</a>
+                        <h5 class="card-title">Arguments For</h5>
+                        <ul class="list-group list-group-flush">
 
                         {% for argument in arguments_for %} 
 
-                            <p> {{ argument.argument }} </p>
+                            <li class="list-group-item">{{ argument.argument }}</li>
+
+                        {% empty %}
+
+                            <li class="list-group-item">No arguments have been published in favor of this position.</li>
 
                         {% endfor %}
 
-                        <a href="{% url 'debate_against_create' debate.pk %}">Create Argument Against</a>
-
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'debate_for_create' debate.pk %}">Create Argument For</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Arguments Against</h5>
+                        <ul class="list-group list-group-flush">
 
                         {% for argument in arguments_against %} 
 
-                            <p> {{ argument.argument }} </p>
+                            <li class="list-group-item">{{ argument.argument }}</li>
+
+                        {% empty %}
+
+                            <li class="list-group-item">No arguments have been published in favor of this position.</li>
 
                         {% endfor %}
 
+                        </ul>
                     </div>
                     <div class="card-footer">
-                        <a href="{% url 'home' %}">Home</a>
-                        <div class="float-right">{{ object.publication_date|date }}</div>
+                        <a href="{% url 'debate_against_create' debate.pk %}">Create Argument Against</a>
                     </div>
                 </div>
             </div>
