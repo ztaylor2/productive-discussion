@@ -45,15 +45,18 @@ class DebateTest(TestCase):
 
     def test_debate_multiple_arguments_for(self):
         """Test the one to many relationship for a debate and arguments for."""
-        the_debate = Debate.objects.get(id=3)
-        arguments_for = the_debate.argumentsfor_set.all()
+        a_debate = Debate.objects.get(id=3)
+        arguments_for = a_debate.argumentsfor_set.all()
         self.assertEqual(len(arguments_for), 2)
 
     def test_debate_multiple_arguments_against(self):
         """Test the one to many relationship for a debate and arguments for."""
-        the_debate = Debate.objects.get(id=2)
-        arguments_against = the_debate.argumentsagainst_set.all()
+        a_debate = Debate.objects.get(id=2)
+        arguments_against = a_debate.argumentsagainst_set.all()
         self.assertEqual(len(arguments_against), 2)
 
-    # def test_user_can_create_multiple_arguments(self):
-    #     """Test that a user can create multiple arguments for a debate."""
+    def test_user_can_create_multiple_arguments(self):
+        """Test that a user can create multiple arguments for a debate."""
+        a_user = User.objects.get(username='zach')
+        arguments_for = a_user.argumentsfor_set.all()
+        self.assertEqual(len(arguments_for), 2)
