@@ -4,6 +4,7 @@ from debate.models import Debate, ArgumentsFor, ArgumentsAgainst
 from django.views.generic import DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from debate.models import Debate
 
 
 class DebateCreateView(LoginRequiredMixin, CreateView):
@@ -29,12 +30,14 @@ class DebateDetailView(DetailView):
     template_name = 'debate/debate_detail.html'
     model = Debate
 
-    # def get_context_data(self, **kwargs):
-    #     """Provide the arguments for and against a debate for the view."""
-    #     context = super().get_context_data(**kwargs)
-    #     context['arguments_for'] = ArgumentsFor.objects.all()
-    #     context['arguments_against'] = ArgumentsAgainst.objects.all()
-    #     return context
+    def get_context_data(self, **kwargs):
+        """Provide the arguments for and against a debate for the view."""
+        context = super().get_context_data(**kwargs)
+        debate_id = self.request.path.split('/')[-1]
+        debate = Debate.objects.get(id=debate_id)
+        context['arguments_for'] = debate.argumentsfor_set.all()
+        context['arguments_against'] = debate.argumentsagainst_set.all()
+        return context
 
 
 class ArgumentForCreateView(CreateView):
@@ -48,6 +51,10 @@ class ArgumentForCreateView(CreateView):
     def form_valid(self, form):
         """Assign the user to the foreign key in the model."""
         form.instance.created_by = self.request.user
+
+        debate_id = self.request.path.split('/')[-1]
+        form.instance.debate = Debate.objects.get(id=debate_id)
+
         return super().form_valid(form)
 
 
