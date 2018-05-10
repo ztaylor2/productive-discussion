@@ -9,6 +9,7 @@ class Debate(models.Model):
     """The database model for a debate."""
 
     title = models.CharField(max_length=50)
+    description = models.TextField(max_length=500)
     publication_date = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(
         User,
