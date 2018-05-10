@@ -1,8 +1,8 @@
 """Database models for debates."""
 from django.db import models
-from django.conf import settings
+# from django.conf import settings
 from django.contrib.auth.models import User
-from django.dispatch import receiver
+# from django.dispatch import receiver
 
 
 class Debate(models.Model):
@@ -10,7 +10,7 @@ class Debate(models.Model):
 
     title = models.CharField(max_length=50)
     publication_date = models.DateField(auto_now_add=True)
-    created_by = models.OneToOneField(
+    created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,
@@ -56,7 +56,7 @@ class ArgumentsAgainst(models.Model):
     )
 
 
-@receiver(models.signals.post_save, sender=ArgumentsFor)
-def update_debate_for_arguments(sender, **kwargs):
-    """When an argument for is saved, it is added to the debate model."""
-    # sitter = kwargs['instance']
+# @receiver(models.signals.post_save, sender=ArgumentsFor)
+# def update_debate_for_arguments(sender, **kwargs):
+#     """When an argument for is saved, it is added to the debate model."""
+#     sitter = kwargs['instance']
