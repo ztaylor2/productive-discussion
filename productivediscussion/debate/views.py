@@ -17,6 +17,11 @@ class DebateCreateView(LoginRequiredMixin, CreateView):
     fields = ['title']
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        """Assign the user to the foreign key in the model."""
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
 
 class DebateDetailView(DetailView):
     """Detail view."""
@@ -37,7 +42,7 @@ class ArgumentForCreateView(CreateView):
 
     template_name = 'debate/argument_for_create.html'
     model = ArgumentsFor
-    fields = ['debate', 'argument']
+    fields = ['argument']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
