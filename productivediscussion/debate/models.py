@@ -31,9 +31,7 @@ class Argument(models.Model):
     )
 
     argument = models.TextField(max_length=500)
-
     side = models.CharField(max_length=50, choices=SIDES)
-
     publication_date = models.DateField(auto_now_add=True)
     debate = models.ForeignKey(
         Debate,
