@@ -22,10 +22,16 @@ class Debate(models.Model):
     )
 
 
-class ArgumentsFor(models.Model):
+class Argument(models.Model):
     """All of the arguments in favor of a debate."""
 
+    SIDES = (
+        ('For', 'For'),
+        ('Against', 'Against')
+    )
+
     argument = models.TextField(max_length=500)
+    side = models.CharField(max_length=50, choices=SIDES)
     publication_date = models.DateField(auto_now_add=True)
     debate = models.ForeignKey(
         Debate,
@@ -39,33 +45,6 @@ class ArgumentsFor(models.Model):
         default=None,
         null=True,
     )
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
-
-    def get_absolute_url(self):
-        """The url to redirect to when an argument for is created."""
-        return reverse('debate_detail', kwargs={'pk': self.debate.pk})
-
-
-class ArgumentsAgainst(models.Model):
-    """All of the arguments against a debate topic."""
-
-    argument = models.TextField(max_length=500)
-    publication_date = models.DateField(auto_now_add=True)
-    debate = models.ForeignKey(
-        Debate,
-        on_delete=models.CASCADE,
-        default=None,
-        null=True,
-    )
-    created_by = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        default=None,
-        null=True,
-    )
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
 
     def get_absolute_url(self):
         """The url to redirect to when an argument for is created."""
@@ -77,24 +56,15 @@ class Like(models.Model):
 
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,)
-    # argument = models.ForeignKey(Argument,
-    #                              on_delete=models.CASCADE,)
+    argument = models.ForeignKey(Argument,
+                                 on_delete=models.CASCADE,)
     created = models.DateTimeField(auto_now_add=True)
 
 
-@receiver(models.signals.post_save, sender=ArgumentsFor)
+@receiver(models.signals.post_save, sender=Argument)
 def update_debate_for_arguments(sender, **kwargs):
     """When an argument for is saved."""
-    argument_for = kwargs['instance']
-    debate = argument_for.debate
-    debate.number_of_arguments += 1
-    debate.save()
-
-
-@receiver(models.signals.post_save, sender=ArgumentsAgainst)
-def update_debate_against_arguments(sender, **kwargs):
-    """When an argument against is saved."""
-    argument_against = kwargs['instance']
-    debate = argument_against.debate
+    argument = kwargs['instance']
+    debate = argument.debate
     debate.number_of_arguments += 1
     debate.save()
