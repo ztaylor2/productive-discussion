@@ -57,4 +57,36 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        
+        $('.thumb').click(function(){
+            var indx = $('.thumb').index(this)
+            var ObjectId = $('.ObjectId:eq('+indx+')').text()
+            $.ajax({
+              type: 'POST',
+              url: '/ajax/ajaxlike/',
+              data: {
+                'contentType':'UserPost',
+                'objectid':ObjectId,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+              },
+              success: LikePost,
+              dataType: 'html'
+            });
+
+            function LikePost(data, textStatus, jqXHR){
+              if($.trim(data) == 'new'){
+                $('.thumb:eq('+indx+')').css('color','#FF0033');
+              }else if($.trim(data) == 'false'){
+                $('.thumb:eq('+indx+')').css('color','');
+
+              }else if($.trim(data) == 'true'){
+                $('.thumb:eq('+indx+')').css('color','#FF0033');
+
+              }
+            }
+          });
+
+    </script>
+
 {% endblock %}
